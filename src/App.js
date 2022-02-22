@@ -28,7 +28,7 @@ function App() {
       <button
         onClick={() => {
           // Llamamos al hook y le asignamos otro valor al contador
-          setContador(contador + 300);
+          setContador(contador + 1);
         }}
       >
         Aumentar contador
