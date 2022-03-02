@@ -1,4 +1,14 @@
 .boton-componente {
     color: #fff;
-    background-color: red;
+    background-color: #03045e;
+    border: none;
+    padding: 1rem 2rem;
+    transition: 0.2s background-color ease-out;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.boton-componente:hover {
+    cursor: pointer;
+    background-color: #023e8a;
 }

@@ -5,6 +5,18 @@
   flex-direction: column;
   height: 100vh;
   gap: 2rem;
-  background-color: #333;
+  background-color: #eee;
+  color: #333;
+}
+.users__box{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.user__card{
+  background: #333;
   color: #fff;
+  border-radius: 0.3rem;
+  padding: 1rem;
 }
