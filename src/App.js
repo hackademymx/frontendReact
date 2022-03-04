@@ -21,39 +21,50 @@ function App() {
   // Async -> Función asincrona
   // await -> esperar
   const getUsers = async () => {
-    try {
-      // Empezamos la peticion y mostramos la pantalla de carga
-      setError(false); // Si teniamos algún error previamente
-      setLoading(true); // Activamos la pantalla de carga
-
-      // Todo el codigo que puede romperse o mandar error
-
-      // Llamar al backend o API
-      let response = await fetch(urlApi);
-
-      //Recabar la información
-      let data = await response.json();
-
-      // Si todo pasa correctamente y no hubo error quitamos
-      // la pantalla de carga y guardamos la data
-      setLoading(false);
-      setData(data);
-    } catch (error) {
-      // Es el codigo que se ejecutará cuando ocurra algún error
-      setLoading(false);
-      setError(true);
-    }
+    setError(false); // Si teniamos algún error previamente
+    setLoading(true); // Activamos la pantalla de carga
+    // Hacemos la llamada a nuestro backend
+    fetch(urlApi)
+      // Then en Javascript es para "entonces"
+      .then((response) => {
+        // Tomamos la respuesta del backend (es la response)
+        if (response.ok) {
+          // Si la respuesta es correcta
+          // Regresamos la info transformada a json
+          return response.json();
+        } else {
+          // Si no es correcta, ponemos nuestro error en true
+          setError(true);
+          // Quitamos la carga
+          setLoading(false);
+          // Regresamos el error por default
+          return new Error(response.data);
+        }
+      })
+      .then((data) => {
+        // Entonces si todo ha salido bien podemos trabajar con la data del backend
+        // Quitamos la carga
+        setLoading(false);
+        // Guardamos la info
+        setData(data);
+      })
+      .catch((error) => {
+        // Si tenemos algún error en nuestro codigo guardamos el error
+        setLoading(false);
+        setError(true);
+      });
   };
   const returnUsers = () => {
-    return (
-      <div className="users__box">
-        {data?.map((item, index) => (
-          <div className="user__card" key={index}>
-            <span>{item.name}</span>
-          </div>
-        ))}
-      </div>
-    );
+    if (data?.length > 0)
+      return (
+        <div className="users__box">
+          {data?.map((item, index) => (
+            <div className="user__card" key={index}>
+              <span>{item.name}</span>
+            </div>
+          ))}
+        </div>
+      );
   };
   // useEffect(() => {
   //   getUsers();
